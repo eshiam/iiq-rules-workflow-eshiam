@@ -1,0 +1,18 @@
+//This rule depicts that identities which are in applications will get printed
+import java.util.*;
+      import sailpoint.api.*;
+        import sailpoint.object.*;
+
+  
+       Identity id=context.getObjectByName(Identity.class, "Adam Kennedy");
+  
+  List&lt;Link> links=id.getLinks();
+  
+  Iterator it=links.iterator();
+  while(it.hasNext())
+  {
+    Link l1=(Link)it.next();
+    System.out.println(l1.getApplicationName());
+        System.out.println(l1.getAttributes());
+
+  }
