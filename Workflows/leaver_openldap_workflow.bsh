@@ -1,0 +1,22 @@
+//Leaver Workflow for OpenLdap Application to trigger Leaver Life cycle for  identities which are in inactive state
+
+import sailpoint.object.*;
+import sailpoint.api.*;
+//System.out.println("deleting/disabling the user: " + event.getObject().getDisplayableName());
+
+ProvisioningPlan plan = new ProvisioningPlan();
+AccountRequest acctReq = new AccountRequest();
+
+Identity identityObj = context.getObjectByName(Identity.class,identityName);
+System.out.println("deleting/disabling the user: " + identityObj.getName());
+
+plan.setIdentity(identityObj);
+       
+acctReq.setApplication("OpenLdap");
+acctReq.setOp(ProvisioningPlan.ObjectOperation.Delete);
+String dn = "cn="+identityObj.getAttribute("firstname")+"."+identityObj.getAttribute("lastname")+","+"ou=People,dc=my-domain,dc=com";
+acctReq.add(new AttributeRequest("cn", ProvisioningPlan.Operation.Add,identityObj.getAttribute("firstname")+"."+identityObj.getAttribute("lastname")));  
+acctReq.add(new AttributeRequest("sn", ProvisioningPlan.Operation.Add,identityObj.getAttribute("lastname")));
+acctReq.add(new AttributeRequest("dn", ProvisioningPlan.Operation.Add,dn));
+plan.add(acctReq);
+return plan;
