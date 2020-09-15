@@ -1,0 +1,24 @@
+//Leaver Workflow for Active Directory Application to trigger Leaver Life cycle for  identities which are in inactive state
+import sailpoint.object.*;
+import sailpoint.api.*;
+
+
+
+Identity identityObj = context.getObjectByName(Identity.class,identityName);
+System.out.println("deleting/disabling the user: " + identityObj.getName());
+ProvisioningPlan plan = new ProvisioningPlan();
+
+plan.setIdentity(identityObj);
+
+plan.setIdentity(identityObj);       
+if(identityObj.getAttribute("Department")=="Engineering")
+{
+AccountRequest acctReqAD=new AccountRequest();          
+acctReqAD.setApplication("Active Directory");
+acctReqAD.setOp(ProvisioningPlan.ObjectOperation.Delete); //you can delete the Account permanently or You may "Disable"
+String nativeIdentity = "CN="+identityObj.getName()+","+"OU=People,DC=eshiam,DC=com";
+acctReqAD.add(new AttributeRequest("samAccountName", ProvisioningPlan.Operation.Add,identityObj.getName()));
+acctReqAD.add(new AttributeRequest("distinguishedName", ProvisioningPlan.Operation.Add,nativeIdentity));
+plan.add(acctReqAD);
+}
+return plan;
