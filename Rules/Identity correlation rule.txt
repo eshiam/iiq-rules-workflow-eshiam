@@ -1,0 +1,9 @@
+Map returnMap=new HashMap();
+
+String emial=account.getStringAttribute("email");
+if(email!null)
+{
+returnMap.put("identityAttributeName","email");
+returnMap.put("identityAttributeValue","email");
+}
+return returnMap;
