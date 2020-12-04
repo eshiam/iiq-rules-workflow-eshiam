@@ -1,0 +1,16 @@
+ import java.util.*;
+  import sailpoint.object.*;
+  import sailpoint.api.*;
+ 
+  
+  
+  QueryOptions Opts = new QueryOptions();
+      
+            Opts.addFilter(Filter.ignoreCase(Filter.eq("value","Accounting")));
+  Iterator iter = context.search(ManagedAttribute.class, Opts);
+  ManagedAttribute managetAttr = null;
+  if (iter != null &amp;&amp; iter.hasNext()) {
+    managetAttr = iter.next(); 
+    return managetAttr;
+  }
+  
