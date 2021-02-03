@@ -1,0 +1,44 @@
+  import java.util.*;
+      import sailpoint.api.*;
+  		import sailpoint.object.*;
+  import sailpoint.api.SailpointContext;
+  
+  
+ 
+  public String getIdentityAttribute(SailPointContext context, Identity identity, String attribute) {
+    if ( identity != null ) {
+      return identity.getAttribute(attribute);
+    }
+    return null;
+    
+    }
+  
+  
+  
+  
+ 
+  
+  
+  
+  public String getApplicationAttribute(SailPointContext context,Identity identity, String application, String attribute) {
+    if ( application != null ) {
+      Application app = context.getObjectByName(Application.class,application);
+      if(app != null)
+      {
+  Filter f = Filter.eq("application", app);
+  
+  QueryOptions qo = new QueryOptions();
+  qo.addFilter(f);
+  List links = context.getObjects(Link.class, qo);
+  Iterator it = links.iterator();
+   while(it.hasNext())
+  {
+    linkNames = (Link)it.next();
+    return linkNames.getAttribute(attribute);
+  }
+    }
+    return null;
+    
+    }
+  }
+  
