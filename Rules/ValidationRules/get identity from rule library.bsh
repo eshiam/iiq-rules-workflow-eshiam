@@ -1,0 +1,11 @@
+   import java.util.*;
+      import sailpoint.api.*;
+  		import sailpoint.object.*;
+  import sailpointcontext.*;
+  
+  
+  Identity identity=context.getObjectByName(Identity.class,"Amanda Ross");
+  
+  return getIdentityAttribute(context,identity,"lastname");
+  
+  
