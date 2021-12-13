@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 String cn=account.getAttribute("cn");
 Map map=new HashMap();
+
+// Modifying the maps for NetworkID and cn
 map.put("identityAttributeName","NetworkID");
 map.put("identityAttributeValue",cn);
 return map;
