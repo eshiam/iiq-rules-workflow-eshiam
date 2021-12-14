@@ -1,0 +1,12 @@
+// Correlating The identities with Application attribute cn and Identity Attribute NetworkId
+
+import java.util.Map; 
+import java.util.HashMap;
+
+String cn=account.getAttribute("cn");
+Map map=new HashMap();
+
+// Modifying the maps for NetworkID and cn
+map.put("identityAttributeName","NetworkID");
+map.put("identityAttributeValue",cn);
+return map;

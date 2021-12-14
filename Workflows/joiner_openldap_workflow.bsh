@@ -1,0 +1,19 @@
+//joiner Workflow for OpenLdap Application to trigger Joiner Life cycle for newly created identities
+import sailpoint.object.*;
+import sailpoint.api.*;
+
+System.out.println("New user was entered the system: " + event.getObject().getDisplayableName());
+      
+Identity identityObj = context.getObjectByName(Identity.class,identityName);
+ProvisioningPlan plan = new ProvisioningPlan();
+plan.setIdentity(identityObj);
+       
+AccountRequest acctReq = new AccountRequest();
+acctReq.setApplication("OpenLdap"); 
+acctReq.setOp(ProvisioningPlan.ObjectOperation.Create);
+String nativeIdentity = "cn="+identityObj.getAttribute("firstname")+"."+identityObj.getAttribute("lastname")+","+"ou=People,dc=my-domain,dc=com";
+acctReq.add(new AttributeRequest("cn", ProvisioningPlan.Operation.Add,identityObj.getAttribute("firstname")+"."+identityObj.getAttribute("lastname")));        
+acctReq.add(new AttributeRequest("sn", ProvisioningPlan.Operation.Add,identityObj.getAttribute("lastname")));
+acctReq.add(new AttributeRequest("dn", ProvisioningPlan.Operation.Add, nativeIdentity));
+plan.add(acctReq);
+return plan;

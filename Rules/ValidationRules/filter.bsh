@@ -1,0 +1,10 @@
+      //This rule depicts that it searches and gets  the Identity in Applications  whose employee id is 1c
+      import java.util.*;
+      import sailpoint.api.*;
+      import sailpoint.object.*;
+			
+  			Filter f=Filter.eq("EmployeeID","1c");
+  			
+       Identity id=context.getUniqueObject(Identity.class, f);
+  	    return id;
+ 

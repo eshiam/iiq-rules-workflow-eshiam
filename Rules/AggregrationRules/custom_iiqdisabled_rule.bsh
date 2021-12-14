@@ -1,0 +1,9 @@
+//This rule is used ti disablenthe status of application accounts which identities status is inactive
+import sailpoint.object.*;
+
+String inactive=object.getAttribute("inactiveIdentity");
+if(inactive.equalsIgnoreCase("true"))
+{
+object.put("IIQDisabled","true");
+}
+return object;

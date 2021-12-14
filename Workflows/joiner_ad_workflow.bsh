@@ -1,0 +1,20 @@
+//joiner Workflow for Active Directory Application to trigger Joiner Life cycle for newly created identities
+import sailpoint.object.*;
+import sailpoint.api.*;
+
+System.out.println("New user was entered the system: " + event.getObject().getDisplayableName());
+        
+Identity identityObj = context.getObjectByName(Identity.class,identityName);
+ProvisioningPlan plan = new ProvisioningPlan();
+plan.setIdentity(identityObj);
+        
+AccountRequest acctReqAD = new AccountRequest();
+acctReqAD.setApplication("Active Directory");
+acctReqAD.setOp(ProvisioningPlan.ObjectOperation.Create);
+acctReqAD.add(new AttributeRequest("employeeID", ProvisioningPlan.Operation.Add,identityObj.getAttribute("employeeID")));
+String nativeIdentity = "CN="+identityObj.getName()+","+"OU=People,DC=eshiam,DC=com";
+acctReqAD.add(new AttributeRequest("samAccountName", ProvisioningPlan.Operation.Add,identityObj.getName()));
+acctReqAD.add(new AttributeRequest("distinguishedName", ProvisioningPlan.Operation.Add,nativeIdentity));
+plan.add(acctReqAD);
+        
+return plan;
